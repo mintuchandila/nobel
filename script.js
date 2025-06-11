@@ -202,35 +202,35 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Buy now button animation
-    const buyButtons = document.querySelectorAll('.buy-now');
+   const buyButtons = document.querySelectorAll('.buy-now');
     
-    buyButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
+buyButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent immediate redirect
+        
+        // Ripple effect (optional)
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        this.appendChild(ripple);
+        
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        
+        setTimeout(() => {
+            ripple.remove();
             
-            // Create ripple effect
-            const ripple = document.createElement('span');
-            ripple.classList.add('ripple');
-            this.appendChild(ripple);
-            
-            // Get click position
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            // Position ripple
-            ripple.style.left = `${x}px`;
-            ripple.style.top = `${y}px`;
-            
-            // Remove ripple after animation
-            setTimeout(() => {
-                ripple.remove();
-                
-                // Show purchase confirmation (simulated)
-                alert(`Thank you for purchasing the ${this.dataset.product === 'education' ? 'AI Sage Education' : 'AI Animals'} Reel Bundle! Your download will begin shortly.`);
-            }, 600);
-        });
+            // Open the link after animation
+            const link = this.getAttribute('data-link');
+            if (link) {
+                window.location.href = link; // Redirect
+            }
+        }, 600);
     });
+});
 
     // Scroll reveal animation
     const scrollReveal = ScrollReveal({
