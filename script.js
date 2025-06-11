@@ -231,7 +231,7 @@ buyButtons.forEach(button => {
         }, 600);
     });
 });
-
+       
     // Scroll reveal animation
     const scrollReveal = ScrollReveal({
         origin: 'bottom',
